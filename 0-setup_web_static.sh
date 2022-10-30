@@ -40,17 +40,17 @@ SERVER_CONFIG=\
 
         root /var/www/html;
         index index.html index.htm index.nginx-debian.html;
-        try_files \$uri \$uri/ /index.html;
+        try_files '\$uri' '\$uri/' /index.html;
 
-        location /hbnb_static/ {
+        location /hbnb_static {
                 alias /data/web_static/current/;
                 index index.html index.htm index.nginx-debian.html;
-                try_files \$uri \$uri/ /hbnb_static/index.html;
+                try_files '\$uri' '\$uri/' /hbnb_static/index.html;
         }
         rewrite ^/redirect_me https://github.com/n1klaus permanent;
 	error_page 400 401 402 403 404 /40x.html;
         error_page 500 502 503 504 /50x.html;
-        add_header X-Served-By \$HOSTNAME;
+        add_header X-Served-By '\$HOSTNAME';
         ignore_invalid_headers on;
 }"
 echo -e "$SERVER_CONFIG" | sudo tee /etc/nginx/sites-enabled/default > /dev/null 2>&1
