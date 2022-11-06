@@ -21,6 +21,7 @@ def do_pack():
         return None
     file_info = local("ls -l versions/{0}".format(_file), capture=True)
     file_info = str(file_info.stdout).split(' ')
-    print("web_static packed: versions/{0} -> {1}Bytes".format(_file, file_info[4]))
+    print("web_static packed: versions/{0} -> {1}Bytes".
+          format(_file, file_info[4]))
     env.archive_path = os.path.realpath("{0}".format(_file))
     return env.archive_path
