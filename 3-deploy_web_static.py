@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-""" 
+"""
     Fabric script that creates and distributes an archive to your web servers
 """
 from fabric.api import *
 import os
 
 env.hosts = ["54.160.127.10", "34.207.156.177"]
+
 
 def do_pack():
     """
@@ -26,6 +27,7 @@ def do_pack():
           format(_file, file_info[4]))
     env.archive_path = os.path.realpath("{0}".format(_file))
     return env.archive_path
+
 
 def do_deploy(archive_path):
     """ Deploy archive to server """
@@ -53,6 +55,7 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
     return False
+
 
 @task
 def deploy():
