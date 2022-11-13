@@ -87,3 +87,9 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
             self.save()
+
+    def close(self):
+        """ Calls remove() method on the private scoped session
+            to close all connections
+        """
+        self.__session.remove()

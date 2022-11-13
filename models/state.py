@@ -31,7 +31,7 @@ class State(BaseModel, Base):
     @property
     def cities(self):
         """ Getter method to return the list of city instances
-            from File storage
+            from storage
         """
         myList = []
         d = storage.all()
