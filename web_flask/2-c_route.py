@@ -17,5 +17,13 @@ def hbnb():
     return "HBNB!"
 
 
+@app.route("/c/<text>", strict_slashes=False)
+def variables(text):
+    """ Function to define route to '/c' with variables as params """
+    if text:
+        text = text.replace("_", " ")
+        return "C " + text
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
