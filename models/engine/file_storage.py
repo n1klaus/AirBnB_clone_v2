@@ -27,9 +27,10 @@ class FileStorage:
         dictionary = {}
         if cls:
             for k, o in FileStorage.__objects.items():
-                if cls == str(k).split('.')[0]:
+                if cls == o.__class__:
                     dictionary.update({k: o})
             return dictionary
+            # return FileStorage.__objects
         else:
             return FileStorage.__objects
 
@@ -68,6 +69,8 @@ class FileStorage:
             obj_name = f"{obj.__class__.__name__}.{obj.id}"
             if FileStorage.__objects.get(obj_name):
                 del FileStorage.__objects[obj_name]
+        else:
+            FileStorage.__objects = {}
         self.save()
     
     def close(self):

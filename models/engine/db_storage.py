@@ -54,7 +54,7 @@ class DBStorage:
         try:
             if cls:
                 for obj in self.__session.query(cls):
-                    dictionary.update({f"{cls}.{obj.id}": obj.to_dict()})
+                    dictionary.update({f"{cls}.{obj.id}": obj})
             else:
                 for class_name in classes.values():
                     instance = self.__session.query(class_name).one_or_none()
@@ -68,7 +68,8 @@ class DBStorage:
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
-        self.__session.add(obj)
+        if obj:
+            self.__session.add(obj)
         self.save()
 
     def save(self):
