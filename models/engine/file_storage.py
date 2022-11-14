@@ -69,8 +69,6 @@ class FileStorage:
             obj_name = f"{obj.__class__.__name__}.{obj.id}"
             if FileStorage.__objects.get(obj_name):
                 del FileStorage.__objects[obj_name]
-        else:
-            FileStorage.__objects = {}
         self.save()
     
     def close(self):
