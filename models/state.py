@@ -12,10 +12,10 @@ class State(BaseModel, Base):
 
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship(
-        "City",
-        back_populates="state",
-        cascade="all, delete")
+    # cities = relationship(
+        # "City",
+        # back_populates="state",
+        # cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """ Constructor method to initialize State instances
@@ -26,7 +26,7 @@ class State(BaseModel, Base):
             key/value dictionary of arguments
 
         """
-        super().__init__(args, kwargs)
+        super().__init__(*args, **kwargs)
 
     @property
     def cities(self):
@@ -37,7 +37,6 @@ class State(BaseModel, Base):
         d = storage.all()
         for obj_name, obj_dict in d.items():
             if str(obj_name).startswith("City") and\
-                    "state_id" in dict(obj_dict).keys() and\
-                    dict(obj_dict).get("state_id") == self.id:
+                    dict(obj_dict).get("id") == self.id:
                 myList.append(obj_dict)
         return myList

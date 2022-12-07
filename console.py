@@ -115,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         return False
 
-    def do_create(self, args: str):
+    def do_create(self, args):
         """ Create an object of any class """
         arg_list = shlex.split(args.strip())
         try:
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                         elif value.isnumeric():
                             value = int(value)
                         params.update({key: value})
-                    new_instance = HBNBCommand.classes[class_name](params)
+                    new_instance = HBNBCommand.classes[class_name](**params)
                 else:
                     new_instance = HBNBCommand.classes[class_name]()
                 new_instance.save()

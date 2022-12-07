@@ -44,7 +44,7 @@ class DBStorage:
             pass
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Returns a dictionary of models currently in database"""
         dictionary = {}
         classes = {
             'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -53,7 +53,7 @@ class DBStorage:
         }
         try:
             if cls:
-                for obj in self.__session.query(cls):
+                for obj in self.__session.query(cls).all():
                     dictionary.update({f"{cls}.{obj.id}": obj})
             else:
                 for class_name in classes.values():
@@ -61,30 +61,30 @@ class DBStorage:
                     if instance:
                         for obj in self.__session.query(class_name).all():
                             dictionary.update({f"{class_name}.{obj.id}": obj})
-        except Exception:
+        except BaseException:
             pass
         finally:
             return dictionary
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Adds new object to database """
         if obj:
             self.__session.add(obj)
-        self.save()
+            self.save()
 
     def save(self):
-        """Saves storage dictionary to file"""
+        """Saves storage dictionary to database"""
         self.__session.commit()
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        """ Create all tables in the database """
         Base.metadata.create_all(self.__engine)
         scope = Session.configure(bind=self.__engine,
                                   expire_on_commit=False)
         self.__session = scoped_session(scope)
 
     def delete(self, obj=None):
-        """ Deletes object from __objects """
+        """ Deletes object from database __engine """
         if obj:
             self.__session.delete(obj)
             self.save()

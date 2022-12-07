@@ -13,11 +13,11 @@ class City(BaseModel, Base):
     __tablename__ = "cities"
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-    state = relationship("State", cascade="all, delete")
-    places = relationship(
-        "Place",
-        back_populates="cities",
-        cascade="all, delete")
+    # state = relationship("State", back_populates="cities", cascade="all, delete")
+    # places = relationship(
+        # "Place",
+        # back_populates="cities",
+        # cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """ Constructor method to initialize user instances
@@ -27,4 +27,4 @@ class City(BaseModel, Base):
         Kwargs:
             key/value dictionary of arguments
         """
-        super().__init__(args, kwargs)
+        super().__init__(*args, **kwargs)
